@@ -13,11 +13,6 @@ import urllib3
 from urllib3.exceptions import InsecureRequestWarning
 urllib3.disable_warnings(InsecureRequestWarning)
 
-import requests
-import urllib3
-from urllib3.exceptions import InsecureRequestWarning
-urllib3.disable_warnings(InsecureRequestWarning)
-
 IP = '10.149.27.41'
 USER = 'admin'
 PASSWORD = 'Nutanix/4u!'

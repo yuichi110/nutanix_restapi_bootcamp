@@ -15,11 +15,6 @@ import urllib3
 from urllib3.exceptions import InsecureRequestWarning
 urllib3.disable_warnings(InsecureRequestWarning)
 
-import requests
-import urllib3
-from urllib3.exceptions import InsecureRequestWarning
-urllib3.disable_warnings(InsecureRequestWarning)
-
 IP = '10.149.27.41'
 USER = 'admin'
 PASSWORD = 'Nutanix/4u!'
@@ -113,10 +108,8 @@ body_dict = {
   "vm_nics": [
     {
       "network_uuid": network_uuid,
-      #"requested_ip_address": ip_address
     }
   ],
-  #"hypervisor_type": hypervisor,
   "affinity": None,
   "vm_features": {
     "AGENT_VM": False
@@ -124,11 +117,11 @@ body_dict = {
 }
 body_text = json.dumps(body_dict)
 response = session.post(url, data=body_text)
-if response.status_code in [200, 201]:
+if response.status_code not in [200, 201]:
   print('Abort. Failed to create VM.')
   print(response.text)
   exit(1)
 
 d = json.loads(response.text)
-task_uuid = d['taskUuid']
+task_uuid = d['task_uuid']
 print('task_uuid={}'.format(task_uuid))
