@@ -21,7 +21,7 @@ import urllib3
 from urllib3.exceptions import InsecureRequestWarning
 urllib3.disable_warnings(InsecureRequestWarning)
 
-IP = '10.149.161.41'
+IP = '10.149.27.41'
 USER = 'admin'
 PASSWORD = 'Nutanix/4u!'
 session = requests.Session()
@@ -46,7 +46,7 @@ for network in networks:
 print(network_name_list)
 print()
 
-'''
+
 # (2) HTTP Post : Create
 print('(2) HTTP POST : Create Network Lesson04_Test')
 url = 'https://{}:9440/PrismGateway/services/rest/v2.0/networks'.format(IP)
@@ -64,9 +64,9 @@ if response.status_code != 200:
   exit(1)
 print('Created New Network')
 
-print('wait 10 secs')
-time.sleep(10)
-'''
+print('wait 30 secs')
+time.sleep(30)
+
 
 # (3) HTTP PUT : Update
 print('(3) HTTP PUT : Get Network UUID via name -> Update network via UUID')
@@ -97,12 +97,17 @@ session.put(url, data=body_text)
 if response.status_code != 200:
   print(response.text)
   exit(1)
-
 print('Updated Existing network')
 
-'''
+print('wait 30 secs')
+time.sleep(30)
+
+
 # (4) HTTP DELETE : Delete
 print('(4) HTTP DELETE : Delete Network Lesson04_Test via UUID')
-url = 'https://{}:9440/PrismGateway/services/rest/v2.0/networks'.format(IP)
+url = 'https://{}:9440/PrismGateway/services/rest/v2.0/networks/{}'.format(IP, uuid)
 response = session.delete(url)
-'''
+if response.status_code not in [200, 204]:
+  print(response.text)
+  exit(1)
+print('Deleted network')
