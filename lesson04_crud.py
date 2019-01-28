@@ -60,6 +60,7 @@ if response.status_code != 200:
 print('Created New Network')
 
 print('wait 30 secs')
+print()
 time.sleep(30)
 
 
@@ -95,6 +96,7 @@ if response.status_code != 200:
 print('Updated Existing network')
 
 print('wait 30 secs')
+print()
 time.sleep(30)
 
 

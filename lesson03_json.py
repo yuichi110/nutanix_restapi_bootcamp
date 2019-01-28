@@ -30,7 +30,7 @@ print()
 
 # (3) PYTHON_DICT(python dict object) to text data with indent formatting
 json_text_03 = json.dumps(PYTHON_DICT, indent=2)
-print('(3) Get values from JSON')
+print('(3) Python dict -> JSON Text with indenting')
 print(json_text_03)
 print()
 
