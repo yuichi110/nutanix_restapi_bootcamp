@@ -34,7 +34,9 @@ if response.status_code != 200:
   exit(1)
 
 d = json.loads(response.text)
+#print(json.dumps(d, indent=2))
 network_name_list = []
+
 networks = d['entities']
 for network in networks:
   network_name_list.append(network['name'])
@@ -53,8 +55,10 @@ body_dict = {
 }
 body_text = json.dumps(body_dict)
 
-session.post(url, data=body_text)
-if response.status_code != 200:
+response = session.post(url, data=body_text)
+if response.status_code not in [200, 201]:
+  print('Response status has problem. Abort')
+  print(response.status_code)
   print(response.text)
   exit(1)
 print('Created New Network')
@@ -82,6 +86,7 @@ if uuid == '':
   print('Unable to find network "{}"'.format(name))
   exit()
 
+
 # update
 url = 'https://{}:9440/PrismGateway/services/rest/v2.0/networks/{}'.format(IP, uuid)
 body_dict = {
@@ -89,7 +94,7 @@ body_dict = {
   "vlan_id": '2134'
 }
 body_text = json.dumps(body_dict)
-session.put(url, data=body_text)
+response = session.put(url, data=body_text)
 if response.status_code != 200:
   print(response.text)
   exit(1)
@@ -98,6 +103,7 @@ print('Updated Existing network')
 print('wait 30 secs')
 print()
 time.sleep(30)
+
 
 
 # (4) HTTP DELETE : Delete

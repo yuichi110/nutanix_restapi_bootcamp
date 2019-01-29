@@ -7,6 +7,7 @@ And get cluster status.
 '''
 
 import requests
+import json
 import urllib3
 from urllib3.exceptions import InsecureRequestWarning
 urllib3.disable_warnings(InsecureRequestWarning)
@@ -29,8 +30,10 @@ url = 'https://{}:9440/PrismGateway/services/rest/v1/cluster'.format(IP)
 response = session.get(url)
 
 # (4) Check response code
-print('Response Code: {}'.format(response.status_code))
+#print('Response Code: {}'.format(response.status_code))
 
 # (5) Check response body
-print('Response Body:')
-print(response.text)
+#print('Response Body:')
+d = json.loads(response.text)
+print(d['name'])
+print(d['uuid'])

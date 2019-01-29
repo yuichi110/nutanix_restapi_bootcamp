@@ -1,0 +1,14 @@
+2019-01-28 12:02:47,515 ERROR root :Traceback (most recent call last):
+  File "/Users/yuichi/Git/nutanix_restapi_bootcamp/bigsample_cui/consoleview.py", line 148, in start
+    warning = self.keymap[key](self.shared, stdscr)
+  File "main.py", line 391, in show_input_target_container
+    shared.clear_task()
+TypeError: clear_task() missing 1 required positional argument: 'shared'
+
+2019-01-28 12:03:00,792 ERROR root :Traceback (most recent call last):
+  File "/Users/yuichi/Git/nutanix_restapi_bootcamp/bigsample_cui/consoleview.py", line 148, in start
+    warning = self.keymap[key](self.shared, stdscr)
+  File "main.py", line 391, in show_input_target_container
+    shared.clear_task()
+TypeError: clear_task() missing 1 required positional argument: 'shared'
+

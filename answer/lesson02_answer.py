@@ -22,7 +22,7 @@ session.verify = False
 session.headers.update({'Content-Type': 'application/json; charset=utf-8'})
 
 # (2) Make URL
-url = 'https://{}:9440/PrismGateway/services/rest/v1/cluster'.format(IP)
+url = 'https://{}:9440/PrismGateway/services/rest/v2.0/vms/'.format(IP)
 # 'https://10.149.27.41:9440/PrismGateway/services/rest/v1/cluster'
 
 # (3) Send request and get Response
