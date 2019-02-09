@@ -13,17 +13,17 @@ import urllib3
 from urllib3.exceptions import InsecureRequestWarning
 urllib3.disable_warnings(InsecureRequestWarning)
 
-IP = '10.149.27.41'
+IP = '10.149.9.41'
 USER = 'admin'
 PASSWORD = 'Nutanix/4u!'
 
 NFS_IP = '10.149.245.50'
 NFS_PORT = 2049
 
-IMAGE_URL = 'nfs://10.149.245.50/Public/bootcamp/centos7_min_raw'
-#IMAGE_URL = 'nfs://10.149.245.50/Public/bootcamp/centos7_min.iso'
-IMAGE_NAME = 'TEST_IMG_CENT7_MIN'
-#IMAGE_NAME = 'TEST_ISO_CENT7_MIN'
+#IMAGE_URL = 'nfs://10.149.245.50/Public/bootcamp/centos7_min_raw'
+IMAGE_URL = 'nfs://10.149.245.50/Public/bootcamp/centos7_min.iso'
+#IMAGE_NAME = 'IMG_CENT7_REST'
+IMAGE_NAME = 'ISO_CENT7_REST'
 CONTAINER_NAME = 'container'
 
 
@@ -50,7 +50,7 @@ session.headers.update({'Content-Type': 'application/json; charset=utf-8'})
 print('(1) Get container UUID')
 url = 'https://{}:9440/PrismGateway/services/rest/v1/containers'.format(IP)
 response = session.get(url)
-if response.status_code != 200:
+if not response.ok:
   print('Abort. response code is not 200')
   print('response.text')
   exit(1)
@@ -82,7 +82,7 @@ body_dict = {
 body_text = json.dumps(body_dict)
 url = 'https://{}:9440/api/nutanix/v0.8/images'.format(IP)
 response = session.post(url , data=body_text)
-if response.status_code != 200:
+if not response.ok:
   exit(1)
 print('image creation task was created.')
 d = json.loads(response.text)
@@ -95,7 +95,7 @@ print('(3) Polling image creation task status till image creattion task finish.'
 url = 'https://{}:9440/api/nutanix/v0.8/tasks/{}'.format(IP, task_uuid)
 while True:
   response = session.get(url)
-  if response.status_code != 200:
+  if not response.ok:
     exit(1)
   d = json.loads(response.text)
   task_name = d['metaRequest']['methodName']

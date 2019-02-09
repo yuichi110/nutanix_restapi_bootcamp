@@ -15,12 +15,12 @@ import urllib3
 from urllib3.exceptions import InsecureRequestWarning
 urllib3.disable_warnings(InsecureRequestWarning)
 
-IP = '10.149.27.41'
+IP = '10.149.9.41'
 USER = 'admin'
 PASSWORD = 'Nutanix/4u!'
 
 NETWORK_NAME = 'REST_NETWORK'
-IMAGE_NAME = 'REST_CENT7_IMG'
+IMAGE_NAME = 'IMG_CENT7_REST'
 
 VM_NAME = 'REST_TEST_VM'
 VM_MEMORY_MB = 2048
@@ -36,7 +36,7 @@ session.headers.update({'Content-Type': 'application/json; charset=utf-8'})
 print('(1) Get network uuid')
 url = 'https://{}:9440/PrismGateway/services/rest/v2.0/networks'.format(IP)
 response = session.get(url)
-if response.status_code != 200:
+if not response.ok:
   print('Abort. Failed to get networks.')
   exit(1)
 
@@ -57,7 +57,7 @@ print()
 print('(2) Get image(vdisk) uuid')
 url = 'https://{}:9440/PrismGateway/services/rest/v2.0/images'.format(IP)
 response = session.get(url)
-if response.status_code != 200:
+if not response.ok:
   print('Abort. Failed to get images.')
   exit(1)
 
@@ -117,7 +117,7 @@ body_dict = {
 }
 body_text = json.dumps(body_dict)
 response = session.post(url, data=body_text)
-if response.status_code not in [200, 201]:
+if not response.ok:
   print('Abort. Failed to create VM.')
   print(response.text)
   exit(1)

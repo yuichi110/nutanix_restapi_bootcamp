@@ -11,7 +11,7 @@ import urllib3
 from urllib3.exceptions import InsecureRequestWarning
 urllib3.disable_warnings(InsecureRequestWarning)
 
-IP = '10.149.27.41'
+IP = '10.149.9.41'
 USER = 'admin'
 PASSWORD = 'Nutanix/4u!'
 
@@ -30,6 +30,7 @@ response = session.get(url)
 
 # (4) Check response code
 print('Response Code: {}'.format(response.status_code))
+print('Response OK?: {}'.format(response.ok))
 
 # (5) Check response body
 print('Response Body:')

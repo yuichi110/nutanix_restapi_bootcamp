@@ -16,7 +16,7 @@ import urllib3
 from urllib3.exceptions import InsecureRequestWarning
 urllib3.disable_warnings(InsecureRequestWarning)
 
-IP = '10.149.27.41'
+IP = '10.149.9.41'
 USER = 'admin'
 PASSWORD = 'Nutanix/4u!'
 session = requests.Session()
@@ -29,7 +29,7 @@ session.headers.update({'Content-Type': 'application/json; charset=utf-8'})
 print('(1) : HTTP GET : Get all network names')
 url = 'https://{}:9440/PrismGateway/services/rest/v2.0/networks'.format(IP)
 response = session.get(url)
-if response.status_code != 200:
+if not response.ok:
   print(response.text)
   exit(1)
 
@@ -56,7 +56,7 @@ body_dict = {
 body_text = json.dumps(body_dict)
 
 response = session.post(url, data=body_text)
-if response.status_code not in [200, 201]:
+if not response.ok:
   print('Response status has problem. Abort')
   print(response.status_code)
   print(response.text)
@@ -73,7 +73,7 @@ print('(3) HTTP PUT : Get Network UUID via name -> Update network via UUID')
 # get uuid
 url = 'https://{}:9440/PrismGateway/services/rest/v2.0/networks'.format(IP)
 response = session.get(url)
-if response.status_code != 200:
+if not response.ok:
   print(response.text)
   exit(1)
 d = json.loads(response.text)
@@ -95,7 +95,7 @@ body_dict = {
 }
 body_text = json.dumps(body_dict)
 response = session.put(url, data=body_text)
-if response.status_code != 200:
+if not response.ok:
   print(response.text)
   exit(1)
 print('Updated Existing network')
@@ -110,7 +110,7 @@ time.sleep(30)
 print('(4) HTTP DELETE : Delete Network Lesson04_Test via UUID')
 url = 'https://{}:9440/PrismGateway/services/rest/v2.0/networks/{}'.format(IP, uuid)
 response = session.delete(url)
-if response.status_code not in [200, 204]:
+if not response.ok:
   print(response.text)
   exit(1)
 print('Deleted network')
