@@ -23,7 +23,7 @@ session.headers.update({'Content-Type': 'application/json; charset=utf-8'})
 
 # (2) Make URL
 url = 'https://{}:9440/PrismGateway/services/rest/v1/cluster'.format(IP)
-# 'https://10.149.27.41:9440/PrismGateway/services/rest/v1/cluster'
+# 'https://10.149.9.41:9440/PrismGateway/services/rest/v1/cluster'
 
 # (3) Send request and get Response
 response = session.get(url)
@@ -35,3 +35,11 @@ print('Response OK?: {}'.format(response.ok))
 # (5) Check response body
 print('Response Body:')
 print(response.text)
+
+# text -> dict
+d = json.loads(response.text)
+
+# get cluster name from dict
+
+# get uuid from dict
+

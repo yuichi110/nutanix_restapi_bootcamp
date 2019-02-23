@@ -13,7 +13,7 @@ import urllib3
 from urllib3.exceptions import InsecureRequestWarning
 urllib3.disable_warnings(InsecureRequestWarning)
 
-IP = '10.149.27.41'
+IP = '10.149.9.41'
 USER = 'admin'
 PASSWORD = 'Nutanix/4u!'
 
@@ -36,14 +36,14 @@ class NutanixRestApiClient():
     session.headers.update({'Content-Type': 'application/json; charset=utf-8'})
     url = self.v1url + '/cluster'
     response = session.get(url)
-    if response.status_code != 200:
+    if not response.ok:
       raise Exception("Failed to establish session to the server.")
     self.session = session
 
   def get_network_uuid(self, name):
     url = self.v2url + '/networks'
     response = self.session.get(url)
-    if response.status_code != 200:
+    if not response.ok:
       raise Exception('Failed to get networks.')
 
     network_uuid = ''
@@ -59,7 +59,7 @@ class NutanixRestApiClient():
   def get_image_uuid_size(self, name):
     url = self.v2url + '/images'
     response = self.session.get(url)
-    if response.status_code != 200:
+    if not response.ok:
       raise Exception('Failed to get images.')
 
     vmdisk_uuid = ''
@@ -115,7 +115,7 @@ class NutanixRestApiClient():
     }
     body_text = json.dumps(body_dict)
     response = self.session.post(url, data=body_text)
-    if response.status_code not in [200, 201]:
+    if not response.ok:
       print(response.status_code)
       raise Exception('Failed to create vm. Reason:{}'.format(response.text))
 

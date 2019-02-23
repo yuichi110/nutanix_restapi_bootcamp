@@ -16,7 +16,7 @@ import urllib3
 from urllib3.exceptions import InsecureRequestWarning
 urllib3.disable_warnings(InsecureRequestWarning)
 
-IP = '10.149.27.41'
+IP = '10.149.9.41'
 USER = 'admin'
 PASSWORD = 'Nutanix/4u!'
 
@@ -36,14 +36,14 @@ def get_session(user, password):
 
   url = 'https://{}:9440/PrismGateway/services/rest/v1/cluster'.format(IP)
   response = session.get(url)
-  if response.status_code != 200:
+  if not response.ok:
     raise Exception("Failed to establish session to the server.")
   return session
 
 def get_network_uuid(session, name):
   url = 'https://{}:9440/PrismGateway/services/rest/v2.0/networks'.format(IP)
   response = session.get(url)
-  if response.status_code != 200:
+  if not response.ok:
     raise Exception('Failed to get networks.')
   
   network_uuid = ''
@@ -59,7 +59,7 @@ def get_network_uuid(session, name):
 def get_image_uuid_size(session, name):
   url = 'https://{}:9440/PrismGateway/services/rest/v2.0/images'.format(IP)
   response = session.get(url)
-  if response.status_code != 200:
+  if not response.ok:
     raise Exception('Failed to get images.')
 
   vmdisk_uuid = ''
@@ -115,7 +115,7 @@ def create_image(session, name, memory_mb, cpu_num, cpu_core, vdisk_uuid, vdisk_
   }
   body_text = json.dumps(body_dict)
   response = session.post(url, data=body_text)
-  if response.status_code not in [200, 201]:
+  if not response.ok:
     print(response.status_code)
     raise Exception('Failed to create vm. Reason:{}'.format(response.text))
 

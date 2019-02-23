@@ -45,7 +45,6 @@ session.auth = (USER, PASSWORD)
 session.verify = False                              
 session.headers.update({'Content-Type': 'application/json; charset=utf-8'})
 
-
 # (1) GET CONTAINER UUID
 print('(1) Get container UUID')
 url = 'https://{}:9440/PrismGateway/services/rest/v1/containers'.format(IP)
@@ -54,7 +53,12 @@ if not response.ok:
   print('Abort. response code is not 200')
   print('response.text')
   exit(1)
-d = json.loads(response.text)
+print(json.dumps(json.loads(response.text), indent=2))
+
+#d = json.loads(response.text)
+#print(json.dumps(d, indent=2))
+'''
+
 container_uuid = ''
 for container in d['entities']:
   if container['name'] == CONTAINER_NAME:
@@ -108,3 +112,4 @@ while True:
   time.sleep(0.5)
 
 print('finish.')
+'''
