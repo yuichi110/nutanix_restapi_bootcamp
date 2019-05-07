@@ -13,9 +13,9 @@ import urllib3
 from urllib3.exceptions import InsecureRequestWarning
 urllib3.disable_warnings(InsecureRequestWarning)
 
-IP = '10.149.9.41'
+IP = '10.149.20.41'
 USER = 'admin'
-PASSWORD = 'Nutanix/4u!'
+PASSWORD = 'Nutanix/4u123!'
 
 NFS_IP = '10.149.245.50'
 NFS_PORT = 2049
@@ -53,11 +53,11 @@ if not response.ok:
   print('Abort. response code is not 200')
   print('response.text')
   exit(1)
-print(json.dumps(json.loads(response.text), indent=2))
+#print(json.dumps(json.loads(response.text), indent=2))
 
-#d = json.loads(response.text)
+d = json.loads(response.text)
 #print(json.dumps(d, indent=2))
-'''
+
 
 container_uuid = ''
 for container in d['entities']:
@@ -112,4 +112,3 @@ while True:
   time.sleep(0.5)
 
 print('finish.')
-'''

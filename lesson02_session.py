@@ -6,14 +6,14 @@ Access to Nutanix cluster with credential.
 And get cluster status.
 '''
 
-import requests
+import requests, json
 import urllib3
 from urllib3.exceptions import InsecureRequestWarning
 urllib3.disable_warnings(InsecureRequestWarning)
 
-IP = '10.149.9.41'
+IP = '10.149.20.41'
 USER = 'admin'
-PASSWORD = 'Nutanix/4u!'
+PASSWORD = 'Nutanix/4u123!'
 
 # (1) Make Session
 session = requests.Session()
@@ -37,7 +37,7 @@ print('Response Body:')
 print(response.text)
 
 # text -> dict
-d = json.loads(response.text)
+print(json.dumps(response.json(), indent=2))
 
 # get cluster name from dict
 
